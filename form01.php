@@ -1,5 +1,25 @@
 <?php
+    
     include_once("functions.php");
+    $txtTenSP = "";
+    $txtDonGia ="";
+    $cboLoaiSP = "";
+    $radAnHien = 1;
+    $hinh = "";
+    if (isset($_POST[""])) {
+        $txtTenSP = $_POST["txtTenSP"];
+        $txtDonGia = $_POST["txtDonGia"];
+        $cboLoaiSP = $_POST["cboLoaiSP"];
+        $radAnHien = $_POST["radAnHien"];
+        $picSP = $_FILES["picSP"];
+        $hinh = $picSP["name"];
+
+        move_uploaded_file($picSP["tmp_name"], "img/$hinh");
+        ghiSP($txtTenSP, $txtDonGia, $radAnHien,$cboLoaiSP, $hinh);
+
+        $checkedHien = $radAnHien == 1 ? "checked" : "";
+        $checkedAn = $radAnHien == 0 ? "checked" : "";
+    }
 
 ?>
 
@@ -16,7 +36,7 @@
 <body>
     <div class="container mt-4 " style="width: 800; margin: auto;">
         <h1 class="text-center">Xử lý sản phẩm</h1>
-        <form action="xulyform01.php" method="POST">
+        <form action="xulyform01.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Tên Sản phẩm</label>
                 <input type="text" class="form-control" name="txtTenSP">
@@ -27,31 +47,32 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Chọn loại sản phẩm</label>
-                <select class="form-control" id="cboLoaiSP">
-                    <?php 
-                        $rsLoaiSP = getAllLoaiSp();
-                        while($rowLoai = mysqli_fetch_assoc($rsLoaiSP) ){
+                <select class="form-control" name="cboLoaiSP">
+                    <?php
+                    $rsLoaiSP = getAllLoaiSp();
+                    while ($rowLoai = mysqli_fetch_assoc($rsLoaiSP)) {
+                        $selected = $cboLoaiSP
                     ?>
-                    <option value="<?php echo $rowLoai["id"] ?>"><?php echo $rowLoai["tenloai"] ?></option>
-                    <? } ?>
+                        <option value="<?php echo $rowLoai["id"] ?>"><?php echo $rowLoai["tenloai"]; ?></option>
+                    <?php } ?>
 
                 </select>
             </div>
-            <div class="form-group form-check">
-                <input type="radio" class="form-check-input" name="radAnHien" value="1" checked>
-                <label class="form-check-label" for="exampleCheck1">Hiện</label>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="radAnHien" value="1" <?php echo $checkedHien; ?>>
+                <label class="form-check-label">Hiện</label>
             </div>
-            <div class="form-group form-check">
-                <input type="radio" class="form-check-input" name="radAnHien" value="2">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="radAnHien" value="0" <?php echo $checkedAn; ?>>
                 <label class="form-check-label">Ẩn</label>
             </div>
             <div class="form-group">
                 <label>Chọn hình ảnh</label>
-                <input type="file" class="form-control-file" name="picSP">
+                <input type="file" class="form-control-file" name="picSP" value="abc">
             </div>
             <div class="text-center">
-                <input type="submit" class="btn btn-primary" value="Ghi Mới">
-                <input type="submit" class="btn btn-primary" value="Thêm">
+                <input type="submit" class="btn btn-primary" name="btnGhi" value="Ghi Mới">
+                <input type="reset" class="btn btn-primary" name="btnThem" value="Thêm">
             </div>
 
         </form>
