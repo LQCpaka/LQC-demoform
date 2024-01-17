@@ -85,7 +85,7 @@ include_once("functions.php");
             </div>
             <div class="form-group">
                 <label>Chọn hình ảnh</label>
-                <input type="file" class="form-control-file" id="picSV" name="picSV">
+                <input type="file" class="form-control-file" id="picSV" name="picSV" value="abc">
             </div>
             <div class="text-center">
                 <input id="btnGhi" type="submit" class="btn btn-primary" name="btnGhi" value="Ghi Mới">
@@ -111,33 +111,33 @@ include_once("functions.php");
                     }
                 });
             });
-            $("#btnGhi").click(function(){
-                var picSV = $("#picSV")['0'].files['0'];
-                var fd = new FormData();
-                var maSV = $("#txtMaSV").val();
-                var hoSV = $("#txtHoSV").val();
-                fd.append("pic",picSV);
-                fd.append("maSV",maSV);
-                fd.append("hoSV",hoSV);
-                $.ajax({
-                    url:"xulyhinh.php",
-                    type:"POST",
-                    data:fd,
-                    contentType:false,
-                    processData:false,
-                    success: function(data){
-                        console.log(data);
-                    }
-                });
-                // console.dir($("#picSV")['0'].files['0']);
-            }); 
+            // $("#btnGhi").click(function(){
+            //     var picSV = $("#picSV")['0'].files['0'];
+            //     var fd = new FormData();
+            //     var maSV = $("#txtMaSV").val();
+            //     var hoSV = $("#txtHoSV").val();
+            //     fd.append("pic",picSV);
+            //     fd.append("maSV",maSV);
+            //     fd.append("hoSV",hoSV);
+            //     $.ajax({
+            //         url:"xulyhinh.php",
+            //         type:"POST",
+            //         data:fd,
+            //         contentType:false,
+            //         processData:false,
+            //         success: function(data){
+            //             console.log(data);
+            //         }
+            //     });
+            //     // console.dir($("#picSV")['0'].files['0']);
+            // }); 
             $("#fghi").submit(function(e){
                 e.preventDefault();
                 $.ajax({
                     url:"xulyhinh.php",
                     type:"POST",
                     data:new FormData(this),
-                      contentType:false,
+                    contentType:false,
                     processData:false,
                     success: function(data){
                         console.log(data);

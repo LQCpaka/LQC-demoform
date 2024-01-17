@@ -18,6 +18,13 @@
         return $rs;
     }
 
+    function ghiSV($maSV, $hoSV,$tenSV,$radPhai,$ngaySinh,$noiSinh,$cboKhoa,$hocBong,$hinh){
+        $conn = connect();
+        $sql = "INSERT INTO sinhvien(masv,hosv,tensv,phai,ngaysinh,noisinh,makh,hocbong,hinh)
+                VALUES ('$maSV', '$hoSV','$tenSV','$radPhai','$ngaySinh','$noiSinh','$cboKhoa','$hocBong','$hinh')";
+        $rs = mysqli_query($conn, $sql);
+        return $rs;
+    }
     
     
     
